@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Allied Medical HRMS + CRM
 
-## Getting Started
+Enterprise-grade HRMS built with Next.js 15, Supabase, Tailwind CSS, and Shadcn UI.
 
-First, run the development server:
+## Modules Included:
+- **RBAC Authentication**: Roles (Super Admin, HR, Manager, Employee, Finance, Field Employee).
+- **Employee Master**: Complete CRUD for employees.
+- **Attendance System**: GPS-based web attendance & Biometric Webhook endpoint.
+- **Leave Management**: Tracking leave types and approvals.
+- **Payroll Engine (India)**: Tax deductions, HRA, PF, PT, ESIC calculators.
+- **CRM & Tours**: Field employee tracking, lead pipelines, visit logs.
+- **Analytics Dashboard**: Real-time graphs for attendance & payroll costs.
+- **Grievance Support Desk**: Internal ticketing system.
+- **PMS & KPIs**: Performance tracking.
 
+## Deployment to Vercel
+
+1. **Push to GitHub**:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git init
+git add .
+git commit -m "Initial commit of Allied Medical HRMS"
+git branch -M main
+git remote add origin https://github.com/yourusername/allied-medical-hrms.git
+git push -u origin main
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Supabase Configuration**:
+Go to the Supabase SQL Editor and run the script located in `database/schema.sql`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. **Vercel Deployment**:
+- Go to [Vercel](https://vercel.com/new).
+- Import your GitHub repository.
+- Add the following Environment Variables before deploying:
+  - `NEXT_PUBLIC_SUPABASE_URL` = Your Supabase Project URL
+  - `NEXT_PUBLIC_SUPABASE_ANON_KEY` = Your Supabase Anon Key
+  - `SUPABASE_SERVICE_ROLE_KEY` = Your Supabase Service Role Key
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4. **Biometric Webhook**:
+Point your eSSL or Biometric server to send POST requests containing `emp_code` and `check_time` to:
+`https://your-vercel-domain.vercel.app/api/biometric/sync`
